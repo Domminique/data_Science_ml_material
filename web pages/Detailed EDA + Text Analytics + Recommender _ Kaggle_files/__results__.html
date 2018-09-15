@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<!-- saved from url=(0328)https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<meta name="generator" content="pandoc">
+
+
+
+<meta name="date" content="2018-09-15">
+
+<title>Donor Choose Extensive data Analysis</title>
+
+<script src="./jquery.min.js.download"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./cosmo.min.css" rel="stylesheet">
+<script src="./bootstrap.min.js.download"></script>
+<script src="./html5shiv.min.js.download"></script>
+<script src="./respond.min.js.download"></script>
+<script src="./tabsets.js.download"></script>
+<script src="./codefolding.js.download"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+div.sourceCode {
+  overflow-x: visible;
+}
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+<!--<base target="_blank">--><base href="." target="_blank"><link href="./vendor.css" rel="stylesheet" type="text/css"><link href="./notebookViewer.css" rel="stylesheet" type="text/css"><script type="text/javascript" src="./MathJax.js.download"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div id="MathJax_Message" style="display: none;"></div>
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Donor Choose Extensive data Analysis</h1>
+<h4 class="date"><em>2018-09-15</em></h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#introduction" target="_self"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#loading-libraries-and-importing-data" target="_self"><span class="toc-section-number">2</span> Loading Libraries and Importing Data</a><ul>
+
+
+</ul></li>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#donorchoose-solution-steps" target="_self"><span class="toc-section-number">3</span> DonorChoose Solution steps</a></li>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#exploratory-data-analysis" target="_self"><span class="toc-section-number">4</span> Exploratory Data Analysis</a><ul>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#donations" target="_self"><span class="toc-section-number">4.1</span> Donations</a><ul>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#donation-amount" target="_self"><span class="toc-section-number">4.1.1</span> Donation Amount</a></li>
+</ul></li>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#donors" target="_self"><span class="toc-section-number">4.2</span> Donors</a><ul>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#donors-citystateis-donor-teacher-and-donors-zip-code" target="_self"><span class="toc-section-number">4.2.1</span> Donors City,State,Is Donor Teacher and Donors Zip Code</a></li>
+</ul></li>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#projects" target="_self"><span class="toc-section-number">4.3</span> Projects</a><ul>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#exploring-projects---projecttypeprojectgradelevelcategoryprojectcostprojectcurrentstatus" target="_self"><span class="toc-section-number">4.3.1</span> Exploring Projects - projecttype,projectgradelevelcategory,projectcost,projectcurrentstatus</a></li>
+</ul></li>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#resources" target="_self"><span class="toc-section-number">4.4</span> Resources</a><ul>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#resource-item-pricequantityvendor-name" target="_self"><span class="toc-section-number">4.4.1</span> Resource Item Price,Quantity,Vendor Name</a></li>
+</ul></li>
+</ul></li>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#text-analytics---nlp---understanding-text-features" target="_self"><span class="toc-section-number">5</span> TEXT ANALYTICS - NLP - Understanding Text Features</a><ul>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#project-title-wordcloud" target="_self"><span class="toc-section-number">5.1</span> Project Title WordCloud</a></li>
+</ul></li>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#identifying-the-factors-influencing-project-funding-status" target="_self"><span class="toc-section-number">6</span> Identifying the Factors influencing Project funding status</a><ul>
+<li><a href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#is-project-gradelevel-categoryresource-categoryproject-typeproject-subject-category" target="_self"><span class="toc-section-number">6.1</span> Is Project GradeLevel Category,Resource Category,Project Type,Project Subject Category,</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p><strong>Please <em>UPVOTE</em> if you like the Kernel and comment if there are any improvements/mistakes</strong></p>
+<center>
+<img src="./media-logo-tagline-reversed@2x.jpg">
+</center>
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<blockquote>
+<p>Founded in 2000 by a Bronx history teacher, <code>DonorsChoose.org</code> has raised $685 million for America’s classrooms. Teachers at three-quarters of all the public schools in the U.S. have come to DonorsChoose.org to request what their students need, making DonorsChoose.org the leading platform for supporting public education. To date, 3 million people and partners have funded 1.1 million DonorsChoose.org projects. But teachers still spend more than a billion dollars of their own money on classroom materials. To get students what they need to learn, the team at DonorsChoose.org needs to be able to connect donors with the projects that most inspire them.</p>
+</blockquote>
+</div>
+<div id="loading-libraries-and-importing-data" class="section level1 tabset tabset-fade tabset-pills">
+<h1><span class="header-section-number">2</span> Loading Libraries and Importing Data</h1>
+<ul class="nav nav-pills" role="tablist"><li role="presentation" class=""><a role="tab" data-toggle="tab" href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#loading-libraries" aria-controls="loading-libraries" target="_self" aria-expanded="false"><span class="header-section-number">2.1</span> Loading libraries</a></li><li role="presentation" class="active"><a role="tab" data-toggle="tab" href="https://www.kaggleusercontent.com/kf/5718542/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..kOJGfF-VoNBRaF0Up4e53A.bEtM8Zvy6-Rneq_njUL2rKkSiyVxS0Oi__cCBxPmeiSONcbAsumImLyY8B2GebutcNDpT0cKAdiEi6GuQAKd2wlnxWEaWhdkmMguWbuE5F2LfU1ppAmc68z2qE4PosYZ05MXPc7lDE77AMewVFS-PURQMsXgC2VQDJu26BE7G5s.QPSQRfMITU0mh0H6SveG8g/__results__.html#importing-data" aria-controls="importing-data" target="_self" aria-expanded="true"><span class="header-section-number">2.2</span> Importing data</a></li></ul><div class="tab-content"><div id="loading-libraries" class="section level2 tab-pane tabbed-pane fade" role="tabpanel">
+
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F361" aria-expanded="true" aria-controls="rcode-643E0F361"><span>Hide</span></button></div></div><div class="r-code-collapse collapse in" id="rcode-643E0F361" aria-expanded="true" style=""><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">'tidyverse'</span>)
+<span class="kw">library</span>(<span class="st">'data.table'</span>)
+<span class="kw">library</span>(<span class="st">'gridExtra'</span>)
+<span class="kw">library</span>(<span class="st">'tidytext'</span>) <span class="co"># text analysis</span>
+<span class="kw">library</span>(<span class="st">'tm'</span>)
+<span class="kw">library</span>(wordcloud)
+<span class="kw">library</span>(gridExtra)
+<span class="kw">library</span>(highcharter)
+<span class="kw">library</span>(lubridate)</code></pre></div></div>
+</div><div id="importing-data" class="section level2 tab-pane tabbed-pane fade active in" role="tabpanel">
+
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F362" aria-expanded="false" aria-controls="rcode-643E0F362"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F362"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())
+
+fillColor =<span class="st"> "#FFA07A"</span>
+fillColor2 =<span class="st"> "#F1C40F"</span>
+
+donations &lt;-<span class="st"> </span><span class="kw">as.tibble</span>(<span class="kw">fread</span>(<span class="st">"../input/Donations.csv"</span>))</code></pre></div></div>
+<pre><code>## 
+Read 0.0% of 4687884 rows
+Read 7.3% of 4687884 rows
+Read 13.2% of 4687884 rows
+Read 19.0% of 4687884 rows
+Read 26.2% of 4687884 rows
+Read 35.0% of 4687884 rows
+Read 35.4% of 4687884 rows
+Read 46.7% of 4687884 rows
+Read 57.6% of 4687884 rows
+Read 61.0% of 4687884 rows
+Read 71.2% of 4687884 rows
+Read 77.6% of 4687884 rows
+Read 79.4% of 4687884 rows
+Read 90.9% of 4687884 rows
+Read 4687884 rows and 7 (of 7) columns from 0.569 GB file in 00:00:36</code></pre>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F363" aria-expanded="false" aria-controls="rcode-643E0F363"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F363"><pre class="sourceCode r"><code class="sourceCode r">donors &lt;-<span class="st"> </span><span class="kw">as.tibble</span>(<span class="kw">fread</span>(<span class="st">"../input/Donors.csv"</span>))
+
+projects &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">"../input/Projects.csv"</span>,<span class="dt">col_types =</span> <span class="kw">cols</span>(
+   <span class="dt">X1 =</span> <span class="kw">col_integer</span>(),
+  <span class="st">`</span><span class="dt">Project ID</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_character</span>(),
+  <span class="st">`</span><span class="dt">School ID</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_character</span>(),
+  <span class="st">`</span><span class="dt">Teacher ID</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_character</span>(),
+  <span class="st">`</span><span class="dt">Teacher Project Posted Sequence</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_integer</span>(),
+  <span class="st">`</span><span class="dt">Project Type</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_character</span>(),
+  <span class="st">`</span><span class="dt">Project Title</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_character</span>(),
+  <span class="st">`</span><span class="dt">Project Essay</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_character</span>(),
+  <span class="st">`</span><span class="dt">Project Subject Category Tree</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_character</span>(),
+  <span class="st">`</span><span class="dt">Project Subject Subcategory Tree</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_character</span>(),
+  <span class="st">`</span><span class="dt">Project Grade Level Category</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_character</span>(),
+  <span class="st">`</span><span class="dt">Project Resource Category</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_character</span>(),
+  <span class="st">`</span><span class="dt">Project Cost</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_character</span>(),
+  <span class="st">`</span><span class="dt">Project Posted Date</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_date</span>(<span class="dt">format =</span> <span class="st">""</span>),
+  <span class="st">`</span><span class="dt">Project Current Status</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_character</span>(),
+  <span class="st">`</span><span class="dt">Project Fully Funded Date</span><span class="st">`</span> =<span class="st"> </span><span class="kw">col_date</span>(<span class="dt">format =</span> <span class="st">""</span>)))
+  
+ resources &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">"../input/Resources.csv"</span>)
+
+schools &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">"../input/Schools.csv"</span>)
+
+teachers &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">"../input/Teachers.csv"</span>)</code></pre></div></div>
+</div></div>
+
+</div>
+<div id="donorchoose-solution-steps" class="section level1">
+<h1><span class="header-section-number">3</span> DonorChoose Solution steps</h1>
+<blockquote>
+<p>DonorsChoose.org has funded over 1.1 million classroom requests through the support of 3 million donors, the majority of whom were making their first-ever donation to a public school. If DonorsChoose.org can motivate even a fraction of those donors to make another donation, that could have a huge impact on the number of classroom requests fulfilled.A good solution will enable DonorsChoose.org to build targeted email campaigns recommending specific classroom requests to prior donors.</p>
+</blockquote>
+<blockquote>
+<p>We need to build a Recommender System so that we can target email campaigns recommending specific classroom requests to donors.We need to send Email to donors who has donated only once based on the behavior and past donations.</p>
+</blockquote>
+<p><strong><code>1.Exploratory Data Analysis - NLP</code></strong></p>
+<p><strong><code>2. Identifying the factors influencing project status and Building a Model to predict the projects which will get EXPIRED.</code></strong></p>
+<p><strong><code>3.Build a Recommender and Suggest Expired projects to specific donors</code></strong></p>
+</div>
+<div id="exploratory-data-analysis" class="section level1">
+<h1><span class="header-section-number">4</span> Exploratory Data Analysis</h1>
+<div id="donations" class="section level2">
+<h2><span class="header-section-number">4.1</span> Donations</h2>
+<div id="donation-amount" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Donation Amount</h3>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F364" aria-expanded="false" aria-controls="rcode-643E0F364"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F364"><pre class="sourceCode r"><code class="sourceCode r">donations &lt;-<span class="st"> </span>donations <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">DonationAmount =</span> <span class="st">`</span><span class="dt">Donation Amount</span><span class="st">`</span>)<span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">donationoptionaldonation =</span> <span class="st">`</span><span class="dt">Donation Included Optional Donation</span><span class="st">`</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">donationrecieveddate =</span> <span class="st">`</span><span class="dt">Donation Received Date</span><span class="st">`</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">donorcartsequence =</span> <span class="st">`</span><span class="dt">Donor Cart Sequence</span><span class="st">`</span>)</code></pre></div></div>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F365" aria-expanded="false" aria-controls="rcode-643E0F365"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F365"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">scipen =</span> <span class="dv">99</span>)
+p1 =<span class="st"> </span><span class="kw">ggplot</span>(donations,<span class="kw">aes</span>(<span class="dt">x=</span> donationoptionaldonation)) <span class="op">+</span><span class="st"> </span>
+<span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">"blue"</span>)
+ 
+ p2 =<span class="st"> </span><span class="kw">ggplot</span>(donations,<span class="kw">aes</span>(<span class="dt">x=</span> DonationAmount)) <span class="op">+</span><span class="st"> </span>
+<span class="kw">geom_histogram</span>(<span class="dt">fill =</span> <span class="st">"blue"</span>)
+
+p3 =<span class="st"> </span><span class="kw">ggplot</span>(donations,<span class="kw">aes</span>(<span class="dt">x=</span> <span class="kw">as.Date</span>(donationrecieveddate))) <span class="op">+</span><span class="st"> </span>
+<span class="kw">geom_density</span>(<span class="dt">color =</span> <span class="st">"blue"</span>)
+
+p4 =<span class="st"> </span><span class="kw">ggplot</span>(donations,<span class="kw">aes</span>(<span class="dt">x=</span> donorcartsequence)) <span class="op">+</span><span class="st"> </span>
+<span class="kw">geom_histogram</span>(<span class="dt">fill =</span> <span class="st">"blue"</span>)
+
+<span class="kw">grid.arrange</span>(p1,p2,p3,p4,<span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div></div>
+<p><img src="./unnamed-chunk-4-1.png" width="672"></p>
+</div>
+</div>
+<div id="donors" class="section level2">
+<h2><span class="header-section-number">4.2</span> Donors</h2>
+<div id="donors-citystateis-donor-teacher-and-donors-zip-code" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Donors City,State,Is Donor Teacher and Donors Zip Code</h3>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F366" aria-expanded="false" aria-controls="rcode-643E0F366"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F366"><pre class="sourceCode r"><code class="sourceCode r">donors &lt;-<span class="st"> </span>donors <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">DonorState =</span> <span class="st">`</span><span class="dt">Donor State</span><span class="st">`</span>)  <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">donorcity =</span> <span class="st">`</span><span class="dt">Donor City</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">donoristeacher =</span> <span class="st">`</span><span class="dt">Donor Is Teacher</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">donorzip =</span> <span class="st">`</span><span class="dt">Donor Zip</span><span class="st">`</span>)
+  
+p3 =<span class="st"> </span>donors <span class="op">%&gt;%</span>
+<span class="kw">count</span>(donorcity) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(n<span class="op">&gt;</span><span class="dv">10000</span> <span class="op">&amp;</span><span class="st"> </span>n <span class="op">&lt;</span><span class="st"> </span><span class="dv">50000</span>) <span class="op">%&gt;%</span>
+<span class="st">           </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(donorcity, <span class="op">-</span>n, <span class="dt">FUN =</span> min), n, <span class="dt">fill =</span> donorcity)) <span class="op">+</span>
+<span class="st">           </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'City'</span>,<span class="dt">y =</span> <span class="st">'Total No of donors'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Totaldonors per each city"</span>)
+
+
+p4 =<span class="st"> </span>donors <span class="op">%&gt;%</span>
+<span class="kw">count</span>(DonorState) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(n<span class="op">&gt;</span><span class="dv">47000</span>) <span class="op">%&gt;%</span>
+<span class="st">           </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(DonorState, <span class="op">-</span>n, <span class="dt">FUN =</span> min), n, <span class="dt">fill =</span> DonorState)) <span class="op">+</span>
+<span class="st">           </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'State'</span>,<span class="dt">y =</span> <span class="st">'Total No of donors'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Totaldonors per each state"</span>)
+
+p5 =<span class="st"> </span><span class="kw">ggplot</span>(donors,<span class="kw">aes</span>(<span class="dt">x=</span> (donoristeacher))) <span class="op">+</span><span class="st"> </span>
+<span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">"blue"</span>)
+
+
+p6 =<span class="st"> </span>donors <span class="op">%&gt;%</span>
+<span class="kw">count</span>(donorzip) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span> (n <span class="op">&lt;</span><span class="dv">50000</span> <span class="op">&amp;</span><span class="st"> </span>n <span class="op">&gt;</span><span class="st"> </span><span class="dv">20000</span>) <span class="op">%&gt;%</span>
+<span class="st">           </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(donorzip, <span class="op">-</span>n, <span class="dt">FUN =</span> min), n, <span class="dt">fill =</span> donorzip)) <span class="op">+</span>
+<span class="st">           </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.6</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'donorzip'</span>,<span class="dt">y =</span> <span class="st">'Total No of donors'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Totaldonors per each donorzip code"</span>)
+<span class="kw">grid.arrange</span>(p3,p4,p5,p6,<span class="dt">ncol=</span><span class="dv">2</span>)</code></pre></div></div>
+<p><img src="./unnamed-chunk-5-1.png" width="672"></p>
+<p>Most Popular Donor Cities are : <code>Chicago  New York  Brooklyn   Los Angeles   San Francisco</code> Most Popular Donor States : <code>California New York Texas Florida  Illnois</code> Most Popular ZipCodes : <code>606,945,100,112</code></p>
+<p>More donors are in California</p>
+</div>
+</div>
+<div id="projects" class="section level2">
+<h2><span class="header-section-number">4.3</span> Projects</h2>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F367" aria-expanded="false" aria-controls="rcode-643E0F367"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F367"><pre class="sourceCode r"><code class="sourceCode r"> projects  &lt;-<span class="st"> </span>projects <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">teacherprojectpostedsequence =</span> <span class="st">`</span><span class="dt">Teacher Project Posted Sequence</span><span class="st">`</span>)  <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">projecttype =</span> <span class="st">`</span><span class="dt">Project Type</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">projecttitle =</span> <span class="st">`</span><span class="dt">Project Title</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">projectessay =</span> <span class="st">`</span><span class="dt">Project Essay</span><span class="st">`</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">projectsubjectcategory =</span> <span class="st">`</span><span class="dt">Project Subject Category Tree</span><span class="st">`</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">projectsubjectsubcategory=</span><span class="st">`</span><span class="dt">Project Subject Subcategory Tree</span><span class="st">`</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">projectgradelevelcategory=</span><span class="st">`</span><span class="dt">Project Grade Level Category</span><span class="st">`</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">projectresourcecategory=</span><span class="st">`</span><span class="dt">Project Resource Category</span><span class="st">`</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">projectcost =</span><span class="st">`</span><span class="dt">Project Cost</span><span class="st">`</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">projectcurrentstatus=</span><span class="st">`</span><span class="dt">Project Current Status</span><span class="st">`</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">projectfullyfundeddate=</span><span class="st">`</span><span class="dt">Project Fully Funded Date</span><span class="st">`</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">projectposteddate =</span> <span class="st">`</span><span class="dt">Project Posted Date</span><span class="st">`</span>)</code></pre></div></div>
+<div id="exploring-projects---projecttypeprojectgradelevelcategoryprojectcostprojectcurrentstatus" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Exploring Projects - projecttype,projectgradelevelcategory,projectcost,projectcurrentstatus</h3>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F368" aria-expanded="false" aria-controls="rcode-643E0F368"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F368"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">scipen =</span> <span class="dv">99</span>)
+q1 =<span class="st"> </span><span class="kw">ggplot</span>(projects,<span class="kw">aes</span>(<span class="dt">x=</span>teacherprojectpostedsequence)) <span class="op">+</span>
+<span class="kw">geom_histogram</span>(<span class="dt">fill=</span><span class="st">"blue"</span>) <span class="op">+</span>
+<span class="kw">scale_x_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">30</span>)) <span class="op">+</span>
+<span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">0</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'teacherprojectpostedsequence'</span>,<span class="dt">y =</span> <span class="st">'Total No of donors'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Totaldonors per each teacherprojectpostedsequence"</span>)
+
+q2 =<span class="st"> </span>projects <span class="op">%&gt;%</span>
+<span class="kw">count</span>(projecttype) <span class="op">%&gt;%</span>
+<span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>) <span class="op">%&gt;%</span>
+<span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(projecttype, <span class="op">-</span>n, <span class="dt">FUN =</span> min), n, <span class="dt">fill =</span> projecttype)) <span class="op">+</span>
+<span class="st">           </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">10</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'projecttype'</span>,<span class="dt">y =</span> <span class="st">'Total No of donors'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Totaldonors per each projecttype"</span>)
+           
+q6 =<span class="st"> </span>projects <span class="op">%&gt;%</span>
+<span class="kw">count</span>(projectgradelevelcategory) <span class="op">%&gt;%</span>
+<span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">10000</span>) <span class="op">%&gt;%</span>
+<span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(projectgradelevelcategory, <span class="op">-</span>n, <span class="dt">FUN =</span> min), n, <span class="dt">fill =</span> projectgradelevelcategory)) <span class="op">+</span>
+<span class="st">           </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">10</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'projectgradelevelcategory'</span>,<span class="dt">y =</span> <span class="st">'Total No of donors'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Totaldonors per each projectgradelevelcategory"</span>)
+           
+
+projects<span class="op">$</span>projectcost=<span class="st"> </span><span class="kw">str_replace</span>(projects<span class="op">$</span>projectcost,<span class="st">"</span><span class="ch">\\</span><span class="st">$"</span>,<span class="st">""</span>)
+projects<span class="op">$</span>projectcost =<span class="st"> </span><span class="kw">as.numeric</span>(projects<span class="op">$</span>projectcost)
+
+q9 =<span class="st"> </span><span class="kw">ggplot</span>(projects,<span class="kw">aes</span>(<span class="dt">x =</span> projectcost)) <span class="op">+</span><span class="st"> </span>
+<span class="kw">geom_histogram</span>(<span class="dt">fill =</span> <span class="st">"blue"</span>) <span class="op">+</span>
+<span class="kw">labs</span>(<span class="dt">x=</span> <span class="st">'Project Cost'</span>,<span class="dt">y =</span> <span class="st">'Count'</span>) <span class="op">+</span><span class="st"> </span>
+<span class="kw">ggtitle</span>(<span class="st">'Distribution of Project Cost'</span>)
+
+ q11 =<span class="st"> </span>projects <span class="op">%&gt;%</span>
+<span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(projectcurrentstatus)) <span class="op">%&gt;%</span>
+<span class="kw">count</span>(projectcurrentstatus) <span class="op">%&gt;%</span>
+<span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="kw">head</span>(<span class="dv">4</span>) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(projectcurrentstatus, <span class="op">-</span>n, <span class="dt">FUN =</span> min), n, <span class="dt">fill =</span> projectcurrentstatus)) <span class="op">+</span>
+<span class="st">           </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span><span class="dv">5</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'projectcurrentstatus'</span>,<span class="dt">y =</span> <span class="st">'Total No of donors'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Totaldonors as per project current status"</span>)
+
+
+<span class="kw">grid.arrange</span>(q1,q2,q6,q9,<span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div></div>
+<p><img src="./unnamed-chunk-7-1.png" width="672"></p>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F369" aria-expanded="false" aria-controls="rcode-643E0F369"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F369"><pre class="sourceCode r"><code class="sourceCode r">pl1 =<span class="st"> </span>projects <span class="op">%&gt;%</span>
+<span class="kw">count</span>(projectresourcecategory) <span class="op">%&gt;%</span>
+<span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">50000</span>) <span class="op">%&gt;%</span>
+<span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(projectresourcecategory, <span class="op">-</span>n, <span class="dt">FUN =</span> min), n, <span class="dt">fill =</span> projectresourcecategory)) <span class="op">+</span>
+<span class="st">           </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'projectresourcecategory'</span>,<span class="dt">y =</span> <span class="st">'Total No of donors'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Totaldonors per each projectresourcecategory"</span>)
+           
+<span class="kw">grid.arrange</span>(q11,pl1,<span class="dt">ncol =</span> <span class="dv">3</span>)</code></pre></div></div>
+<p><img src="./unnamed-chunk-7-2.png" width="672"></p>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F3610" aria-expanded="false" aria-controls="rcode-643E0F3610"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F3610"><pre class="sourceCode r"><code class="sourceCode r">q10  =<span class="st"> </span><span class="kw">ggplot</span>(projects,<span class="kw">aes</span>(<span class="dt">x =</span> projectfullyfundeddate )) <span class="op">+</span><span class="st"> </span>
+<span class="kw">geom_histogram</span>(<span class="dt">fill =</span> <span class="st">"blue"</span>) <span class="op">+</span>
+<span class="kw">labs</span>(<span class="dt">x=</span> <span class="st">'Project fullyfundeddate '</span>,<span class="dt">y =</span> <span class="st">'Count'</span>) <span class="op">+</span><span class="st"> </span>
+<span class="kw">ggtitle</span>(<span class="st">'Distribution of Project fullyfundeddate '</span>)
+
+q15 =<span class="st"> </span>projects <span class="op">%&gt;%</span>
+<span class="kw">count</span>(projectsubjectsubcategory) <span class="op">%&gt;%</span>
+<span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">27000</span>) <span class="op">%&gt;%</span>
+<span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(projectsubjectsubcategory, <span class="op">-</span>n, <span class="dt">FUN =</span> min), n, <span class="dt">fill =</span> projectsubjectsubcategory)) <span class="op">+</span>
+<span class="st">           </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'projectsubjectcategory'</span>,<span class="dt">y =</span> <span class="st">'Total No of donors'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Totaldonors per each projectsubjectsubcategory"</span>)
+<span class="kw">grid.arrange</span>(q10,q15,<span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div></div>
+<p><img src="./unnamed-chunk-7-3.png" width="672"></p>
+</div>
+</div>
+<div id="resources" class="section level2">
+<h2><span class="header-section-number">4.4</span> Resources</h2>
+<div id="resource-item-pricequantityvendor-name" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Resource Item Price,Quantity,Vendor Name</h3>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F3611" aria-expanded="false" aria-controls="rcode-643E0F3611"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F3611"><pre class="sourceCode r"><code class="sourceCode r"> resources  &lt;-<span class="st"> </span>resources <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">resourceitemname =</span> <span class="st">`</span><span class="dt">Resource Item Name</span><span class="st">`</span>)  <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">resourcequantity =</span> <span class="st">`</span><span class="dt">Resource Quantity</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">resourceunitprice =</span> <span class="st">`</span><span class="dt">Resource Unit Price</span><span class="st">`</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">resourcevendorname =</span> <span class="st">`</span><span class="dt">Resource Vendor Name</span><span class="st">`</span>) 
+  
+ 
+ r1 =<span class="st"> </span>resources <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(resourceitemname) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">5000</span>) <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(resourceitemname, <span class="op">-</span>n, <span class="dt">FUN =</span> min), n, <span class="dt">fill =</span> resourceitemname)) <span class="op">+</span>
+<span class="st">           </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">30</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'Resource Item Names'</span>,<span class="dt">y =</span> <span class="st">'Total No of donors'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Totaldonors as per Resource Item Names"</span>)
+
+r3=<span class="st">  </span>resources <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(resourcevendorname) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(resourcevendorname , <span class="op">-</span>n, <span class="dt">FUN =</span> min), n, <span class="dt">fill =</span> resourcevendorname )) <span class="op">+</span>
+<span class="st">           </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'resourcevendorname'</span>,<span class="dt">y =</span> <span class="st">'Total No of donors'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Totaldonors as per resourcevendorname "</span>) 
+<span class="kw">grid.arrange</span>(r1,r3,<span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div></div>
+<p><img src="./unnamed-chunk-8-1.png" width="672"></p>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F3612" aria-expanded="false" aria-controls="rcode-643E0F3612"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F3612"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">options</span>(<span class="dt">scipen =</span> <span class="dv">99</span>)
+ resources <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(resourcequantity) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">750000</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(resourcequantity , <span class="op">-</span>n, <span class="dt">FUN =</span> min), n, <span class="dt">fill =</span> resourcequantity )) <span class="op">+</span>
+<span class="st">           </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'resourcequantity'</span>,<span class="dt">y =</span> <span class="st">'Total No of donors'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Totaldonors as per resource quantity "</span>) </code></pre></div></div>
+<p><img src="./unnamed-chunk-8-2.png" width="672"></p>
+</div>
+</div>
+</div>
+<div id="text-analytics---nlp---understanding-text-features" class="section level1">
+<h1><span class="header-section-number">5</span> TEXT ANALYTICS - NLP - Understanding Text Features</h1>
+<center>
+<img src="./tidyflow-ch-1.png">
+</center>
+<blockquote>
+<p>A <code>token</code> is a meaningful unit of text, most often a word, that we are interested in using for further analysis, and tokenization is the process of splitting text into tokens.</p>
+</blockquote>
+<blockquote>
+<p>We need to both break the text into individual tokens (a process called <code>tokenization</code>) and transform it to a tidy data structure. To do this, we use tidytext’s <code>unnest_tokens()</code> function.</p>
+</blockquote>
+<div id="project-title-wordcloud" class="section level2">
+<h2><span class="header-section-number">5.1</span> Project Title WordCloud</h2>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F3613" aria-expanded="false" aria-controls="rcode-643E0F3613"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F3613"><pre class="sourceCode r"><code class="sourceCode r">titles =<span class="st"> </span>projects <span class="op">%&gt;%</span>
+<span class="st">         </span><span class="kw">unnest_tokens</span>(word,projecttitle) <span class="op">%&gt;%</span>
+<span class="st">         </span><span class="kw">anti_join</span>(stop_words,<span class="dt">by =</span> <span class="st">"word"</span>)
+
+
+<span class="kw">layout</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">nrow=</span><span class="dv">2</span>), <span class="dt">heights=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>))
+<span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))
+<span class="kw">plot.new</span>()
+<span class="kw">text</span>(<span class="dt">x=</span><span class="fl">0.5</span>, <span class="dt">y=</span><span class="fl">0.5</span>, <span class="st">"Most frequent Project Title words"</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)
+
+titles <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(word) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">top_n</span>(<span class="dv">40</span>, n) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">with</span>(<span class="kw">wordcloud</span>(word, n, <span class="dt">color =</span> <span class="kw">c</span>(<span class="st">"red4"</span>, <span class="st">"black"</span>, <span class="st">"darkblue"</span>)))</code></pre></div></div>
+<p><img src="./unnamed-chunk-9-1.png" width="672"></p>
+<blockquote>
+<p>there are a variety of methods and dictionaries that exist for evaluating the opinion or emotion in text. The tidytext package contains several <code>sentiment lexicons</code> in the sentiments dataset</p>
+</blockquote>
+<center>
+<img src="./tidyflow-ch-2.png">
+</center>
+<p>##Project Title Sentiment Analysis</p>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F3614" aria-expanded="false" aria-controls="rcode-643E0F3614"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F3614"><pre class="sourceCode r"><code class="sourceCode r">  titles <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">"bing"</span>), <span class="dt">by =</span> <span class="st">"word"</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(word, sentiment, <span class="dt">sort =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sentiment) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">top_n</span>(<span class="dv">10</span>, n) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">reorder</span>(word, n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(word, n, <span class="dt">fill =</span> sentiment)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>sentiment, <span class="dt">scales =</span> <span class="st">"free_y"</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">"Contribution to negative/positive sentiment"</span>, <span class="dt">x =</span> <span class="ot">NULL</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">"Project Title - Sentiment analysis"</span>)</code></pre></div></div>
+<p><img src="./unnamed-chunk-10-1.png" width="672"></p>
+</div>
+</div>
+<div id="identifying-the-factors-influencing-project-funding-status" class="section level1">
+<h1><span class="header-section-number">6</span> Identifying the Factors influencing Project funding status</h1>
+<div id="is-project-gradelevel-categoryresource-categoryproject-typeproject-subject-category" class="section level2">
+<h2><span class="header-section-number">6.1</span> Is Project GradeLevel Category,Resource Category,Project Type,Project Subject Category,</h2>
+<pre><code>Project Cost  responsible for predicting Project Current Status?</code></pre>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F3615" aria-expanded="false" aria-controls="rcode-643E0F3615"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F3615"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">scipen =</span> <span class="dv">99</span>)
+ g1 =<span class="st"> </span><span class="kw">ggplot</span>(projects,<span class="kw">aes</span>(<span class="dt">x =</span> projectgradelevelcategory,..count..)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> projectcurrentstatus),<span class="dt">position =</span> <span class="st">"dodge"</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">   </span><span class="kw">theme</span>(<span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'Project Grade Level Category'</span>,<span class="dt">y =</span> <span class="st">'Proportion of Project Current Status'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Proportion of Project Current status wrt Project Grade Level Category"</span>)
+           
+ g2 =<span class="st"> </span><span class="kw">ggplot</span>(projects,<span class="kw">aes</span>(<span class="dt">x =</span> projectgradelevelcategory,..count..)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> projectcurrentstatus),<span class="dt">position =</span> <span class="st">"fill"</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">   </span><span class="kw">theme</span>(<span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'Project Grade Level Category'</span>,<span class="dt">y =</span> <span class="st">'Proportion of Project Current Status'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Proportion of Project Current status wrt Project Grade Level Category"</span>)
+
+  
+<span class="kw">options</span>(<span class="dt">scipen =</span> <span class="dv">99</span>)
+
+   g3 =<span class="st">    </span><span class="kw">ggplot</span>(projects,<span class="kw">aes</span>(<span class="dt">x =</span> projectresourcecategory,..count..)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> projectcurrentstatus),<span class="dt">position =</span> <span class="st">"dodge"</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">   </span><span class="kw">theme</span>(<span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">hjust=</span><span class="dv">1</span>,<span class="dt">size =</span><span class="dv">5</span>, <span class="dt">vjust=</span><span class="fl">0.5</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'projectresourcecategory'</span>,<span class="dt">y =</span> <span class="st">'Proportion of ProjectCurrentStatus'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Prop of Project status wrt Grade Level Category"</span>)
+           
+    g4 =<span class="st">   </span><span class="kw">ggplot</span>(projects,<span class="kw">aes</span>(<span class="dt">x =</span> projectresourcecategory,..count..)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> projectcurrentstatus),<span class="dt">position =</span> <span class="st">"fill"</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">   </span><span class="kw">theme</span>(<span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">hjust=</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">5</span>,<span class="dt">vjust=</span><span class="fl">0.5</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'projectresourcecategory'</span>,<span class="dt">y =</span> <span class="st">'prop of proj current status'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Proportion of Project Current status wrt Project Grade Level Category"</span>)
+
+    g5 =<span class="st">      </span><span class="kw">ggplot</span>(projects,<span class="kw">aes</span>(<span class="dt">x =</span> projecttype,..count..)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> projectcurrentstatus),<span class="dt">position =</span> <span class="st">"dodge"</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">   </span><span class="kw">theme</span>(<span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">size =</span> <span class="dv">5</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'Project Grade Level Category'</span>,<span class="dt">y =</span> <span class="st">'Proportion of Project Current Status'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Proportion of Project Current status wrt Project Grade Level Category"</span>)
+           
+    g6 =<span class="st"> </span><span class="kw">ggplot</span>(projects,<span class="kw">aes</span>(<span class="dt">x =</span> projecttype,..count..)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> projectcurrentstatus),<span class="dt">position =</span> <span class="st">"fill"</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">   </span><span class="kw">theme</span>(<span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">size =</span> <span class="dv">6</span>,<span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.9</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'Project Grade Level Category'</span>,<span class="dt">y =</span> <span class="st">'Proportion of Project Current Status'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Proportion of Project Current status wrt Project Grade Level Category"</span>)
+
+g9 =<span class="st">  </span><span class="kw">ggplot</span>(projects,<span class="kw">aes</span>(<span class="dt">x =</span> teacherprojectpostedsequence,..count..)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> projectcurrentstatus),<span class="dt">position =</span> <span class="st">"fill"</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">   </span><span class="kw">theme</span>(<span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">hjust=</span>.<span class="dv">7</span>, <span class="dt">vjust=</span><span class="fl">0.7</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'Teacher Project Posted Sequence'</span>,<span class="dt">y =</span> <span class="st">'Proportion of Project Current Status'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Proportion of Project Current status wrt Project Subject Category "</span>)
+
+projects<span class="op">$</span>projectcost =<span class="st"> </span><span class="kw">as.numeric</span>(projects<span class="op">$</span>projectcost)
+<span class="kw">options</span>(<span class="dt">scipen =</span> <span class="dv">99</span>)
+projects<span class="op">$</span>projectcost &lt;-<span class="st"> </span><span class="kw">cut</span>(projects<span class="op">$</span>projectcost, <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">100</span>,<span class="dv">500</span>,<span class="dv">5000</span>,<span class="dv">9000</span>),
+                   <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">"0-100"</span>,<span class="st">"100-500"</span>,<span class="st">"500-5000"</span>,<span class="st">"5000-9000"</span>), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)
+
+g10 =<span class="st"> </span><span class="kw">ggplot</span>(projects,<span class="kw">aes</span>(<span class="dt">x =</span> projects<span class="op">$</span>projectcost,<span class="dt">fill =</span> projectcurrentstatus)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">"dodge"</span>)
+  <span class="kw">grid.arrange</span>(g1,g2,g9,g10,<span class="dt">ncol =</span><span class="dv">2</span>)</code></pre></div></div>
+<p><img src="./unnamed-chunk-11-1.png" width="672"></p>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F3616" aria-expanded="false" aria-controls="rcode-643E0F3616"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F3616"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">grid.arrange</span>(g3,g4,<span class="dt">ncol =</span><span class="dv">2</span>)</code></pre></div></div>
+<p><img src="./unnamed-chunk-11-2.png" width="672"></p>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right" data-toggle="collapse" data-target="#rcode-643E0F3617" aria-expanded="false" aria-controls="rcode-643E0F3617"><span>Code</span></button></div></div><div class="collapse r-code-collapse" id="rcode-643E0F3617"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">grid.arrange</span>(g5,g6,<span class="dt">ncol =</span><span class="dv">2</span>)</code></pre></div></div>
+<p><img src="./unnamed-chunk-11-3.png" width="672"></p>
+<div class="sourceCode"><div class="row"><div class="col-md-12"><button type="button" class="btn btn-default btn-xs code-folding-btn pull-right collapsed" data-toggle="collapse" data-target="#rcode-643E0F3618" aria-expanded="false" aria-controls="rcode-643E0F3618"><span>Code</span></button></div></div><div class="r-code-collapse collapse" id="rcode-643E0F3618" aria-expanded="false" style="height: 0px;"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">ggplot</span>(projects,<span class="kw">aes</span>(<span class="dt">x =</span> projectsubjectcategory,..count..)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> projectcurrentstatus),<span class="dt">position =</span> <span class="st">"dodge"</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">   </span><span class="kw">theme</span>(<span class="dt">axis.text.x  =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">hjust=</span>.<span class="dv">7</span>,<span class="dt">size =</span> <span class="dv">4</span>, <span class="dt">vjust=</span><span class="fl">0.7</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">           </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">'Project Subject Category Tree'</span>,<span class="dt">y =</span> <span class="st">'Proportion of Project Current Status'</span>) <span class="op">+</span>
+<span class="st">           </span><span class="kw">ggtitle</span>(<span class="st">"Proportion of Project Current status wrt Project Subject Category "</span>)</code></pre></div></div>
+<p><img src="./unnamed-chunk-11-4.png" width="672"></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<script src="./manifest.js.download"></script><script src="./vendor.js.download"></script><script src="./notebookViewer.js.download"></script>
+
+</body></html>
